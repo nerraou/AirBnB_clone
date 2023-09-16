@@ -18,9 +18,16 @@ class TestBaseModel(unittest.TestCase):
         self.assertGreater(len(BaseModel.save.__doc__), 1)
         self.assertGreater(len(BaseModel.to_dict.__doc__), 1)
 
-    def test_instance_creation(self):
-        """test id type"""
+    def test_instance_creation_without_args(self):
+        """test instance creation without args"""
         instance = BaseModel()
+        self.assertEqual(type(instance.id), str)
+    
+    def test_instance_creation_with_args(self):
+        """test instance creation with args"""
+        instance = BaseModel(id="04b54f33-14ef-4336-9f9d-d94137b7cd2d",
+                             created_at="2023-09-16T14:37:56.803493",
+                             updated_at="2023-09-16T14:37:56.803493")
         self.assertEqual(type(instance.id), str)
 
     def test_save(self):
