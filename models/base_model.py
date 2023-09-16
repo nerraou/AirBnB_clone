@@ -7,12 +7,27 @@ from datetime import datetime
 
 
 class BaseModel():
-    """This is Base model of all commig model"""
-    def __init__(self):
-        """ init base model """
-        self.id = str(uuid.uuid4())
-        self.created_at = datetime.today()
-        self.updated_at = datetime.today()
+    """
+    This is Base model of all commig model
+    use *args, **kwargs arguments for the constructor
+    """
+    def __init__(self, *args, **kwargs):
+        """
+        init base model
+        get all values from kwargs
+        """
+        if len(kwargs) != 0:
+            for key in kwargs:
+                if key == "__class__":
+                    continue
+                if key == "created_at" or key == "updated_at":
+                    self.__dict__[key] = datetime.fromisoformat(kwargs[key])
+                else:
+                    self.__dict__[key] = kwargs[key]
+        else:
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.today()
+            self.updated_at = datetime.today()
 
     def __str__(self):
         """return: [<class name>] (<self.id>) <self.__dict__>"""
