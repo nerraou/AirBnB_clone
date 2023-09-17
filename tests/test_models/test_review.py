@@ -21,3 +21,5 @@ class TestReview(unittest.TestCase):
         """test attributes"""
         u = Review()
         self.assertEqual(type(u.id), str)
+        self.assertEqual(type(u.place_id), str)
+        self.assertEqual(type(u.text), str)
