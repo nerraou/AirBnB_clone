@@ -69,7 +69,7 @@ class TestFileStorage(unittest.TestCase):
             FileStorage._FileStorage__file_path
         TestFileStorage.__original_objects = \
             FileStorage._FileStorage__objects
-        FileStorage._FileStorage__file_path = "/tmp/tmp_test_file.json"
+        FileStorage._FileStorage__file_path = "tmp_test_file.json"
         FileStorage._FileStorage__objects = {}
 
     @staticmethod
