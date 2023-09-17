@@ -5,6 +5,7 @@
 import unittest
 from models.user import User
 from time import sleep
+from datetime import datetime
 
 
 class TestUser(unittest.TestCase):
@@ -40,3 +41,12 @@ class TestUser(unittest.TestCase):
         u = User()
         with self.assertRaises(TypeError):
             u.save(None)
+
+    def test_str_representation(self):
+        """test str representation"""
+        u = User()
+        u_str = str(u)
+        self.assertIn("[User] ({})".format(u.id), u_str)
+        self.assertIn("'id': '{}'".format(u.id), u_str)
+        self.assertIn("'created_at': " + repr(u.created_at), u_str)
+        self.assertIn("'updated_at': " + repr(u.updated_at), u_str)
