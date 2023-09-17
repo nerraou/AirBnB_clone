@@ -22,7 +22,7 @@ class TestBaseModel(unittest.TestCase):
         """test instance creation without args"""
         instance = BaseModel()
         self.assertEqual(type(instance.id), str)
-    
+
     def test_instance_creation_with_args(self):
         """test instance creation with args"""
         instance = BaseModel(id="04b54f33-14ef-4336-9f9d-d94137b7cd2d",
