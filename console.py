@@ -7,13 +7,26 @@ from models import storage
 import re
 from models.base_model import BaseModel
 from models.user import User
+from models.place import Place
+from models.state import State
+from models.amenity import Amenity
+from models.city import City
+from models.review import Review
 
 
 class HBNBCommand(cmd.Cmd):
     """This is Hbnb class; console managment"""
     prompt = '(hbnb) '
-
-    __classes = {"BaseModel": BaseModel, "User": User}
+    # Place, State, City, Amenity and Review
+    __classes = {
+        "BaseModel": BaseModel,
+        "User": User,
+        "Place": Place,
+        "State": State,
+        "Amenity": Amenity,
+        "City": City,
+        "Review": Review,
+    }
 
     def emptyline(self):
         """Do nothing"""
