@@ -17,6 +17,8 @@ class BaseModel():
         init base model
         get all values from kwargs
         """
+        self.firstName = "Jhon"
+        self.age = 1
         if len(kwargs) != 0:
             for key in kwargs:
                 if key == "__class__":

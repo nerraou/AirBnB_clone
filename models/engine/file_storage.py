@@ -3,6 +3,7 @@
 
 from json import dump, load
 from models.base_model import BaseModel
+from models.user import User
 
 
 class FileStorage:
@@ -12,7 +13,7 @@ class FileStorage:
     """
     __file_path = "file.json"
     __objects = {}
-    __classes = {"BaseModel": BaseModel}
+    __classes = {"BaseModel": BaseModel, "User": User}
 
     def all(self):
         """returns the dictionary __objects"""
