@@ -73,3 +73,11 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(type(instance.created_at), datetime)
         self.assertEqual(type(instance.updated_at), datetime)
         self.assertEqual(type(instance.id), str)
+
+    def test_support_extra_attributes(self):
+        """test support extra attributes"""
+        m = BaseModel()
+        m.age = 25
+        m_dictionary = m.to_dict()
+        self.assertIn("age", m_dictionary)
+        self.assertEqual(m.age, 25)
