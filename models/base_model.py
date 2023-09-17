@@ -22,9 +22,9 @@ class BaseModel():
                 if key == "__class__":
                     continue
                 if key == "created_at" or key == "updated_at":
-                    self.__dict__[key] = datetime.fromisoformat(kwargs[key])
+                    setattr(self, key, datetime.fromisoformat(kwargs[key]))
                 else:
-                    self.__dict__[key] = kwargs[key]
+                    setattr(self, key, kwargs[key])
         else:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.utcnow()

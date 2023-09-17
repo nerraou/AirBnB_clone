@@ -39,11 +39,23 @@ class TestFileStorage(unittest.TestCase):
 
         TestFileStorage.restore_file_storage_attrs()
 
-    def test_all_with_args(self):
-        """test all method with args"""
+    def test_methods_with_args(self):
+        """test methods with args"""
         with self.assertRaises(TypeError):
             storage = FileStorage()
             storage.all(1)
+
+        with self.assertRaises(AttributeError):
+            storage = FileStorage()
+            storage.new(None)
+
+        with self.assertRaises(TypeError):
+            storage = FileStorage()
+            storage.save(None)
+
+        with self.assertRaises(TypeError):
+            storage = FileStorage()
+            storage.reload(None)
 
     def test_new_save_reload(self):
         """test save"""
