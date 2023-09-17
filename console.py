@@ -167,8 +167,15 @@ class HBNBCommand(cmd.Cmd):
 
     def default(self, arg):
         """override default method"""
+
         actions_dict = {
-            "User.count()": lambda: self.print_count("User")
+            "BaseModel.count()": lambda: self.print_count("BaseModel"),
+            "User.count()": lambda: self.print_count("User"),
+            "Place.count()": lambda: self.print_count("Place"),
+            "State.count()": lambda: self.print_count("State"),
+            "Amenity.count()": lambda: self.print_count("Amenity"),
+            "City.count()": lambda: self.print_count("City"),
+            "Review.count()": lambda: self.print_count("Review"),
         }
 
         if arg in actions_dict:
