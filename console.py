@@ -167,21 +167,36 @@ class HBNBCommand(cmd.Cmd):
 
     def default(self, arg):
         """override default method"""
+        pattern = "([a-zA-Z]+)\\.([a-zA-Z]+)\\((?:\\\"([^\\\"]*)\\\")?\\)"
+        matches = re.match(pattern, arg)
 
+        if matches is None:
+            print("*** Unknown syntax:", arg)
+            return False
+
+        groups = matches.groups()
         actions_dict = {
-            "BaseModel.count()": lambda: self.print_count("BaseModel"),
-            "User.count()": lambda: self.print_count("User"),
-            "Place.count()": lambda: self.print_count("Place"),
-            "State.count()": lambda: self.print_count("State"),
-            "Amenity.count()": lambda: self.print_count("Amenity"),
-            "City.count()": lambda: self.print_count("City"),
-            "Review.count()": lambda: self.print_count("Review"),
+            "all": lambda: self.print_all(groups[0]),
+            "count": lambda: self.print_count(groups[0]),
+            "show": lambda: self.show_instance(groups[0], groups[2]),
+            "destroy": lambda: self.destroy_instance(groups[0], groups[2]),
         }
 
-        if arg in actions_dict:
-            actions_dict[arg]()
+        if groups[1] in actions_dict:
+            actions_dict[groups[1]]()
         else:
             print("*** Unknown syntax:", arg)
+            return False
+
+    def print_all(self, entity):
+        """print all of entity"""
+        objects = storage.all()
+        array = []
+        for key in objects:
+            obj = objects[key]
+            if obj.__class__.__name__ == entity:
+                array.append(str(obj))
+        print(array)
 
     def print_count(self, entity):
         """print entity count"""
@@ -192,6 +207,29 @@ class HBNBCommand(cmd.Cmd):
             if obj.__class__.__name__ == entity:
                 count += 1
         print(count)
+
+    def show_instance(self, entity, id):
+        """show instance by id"""
+        objects = storage.all()
+        key = "{}.{}".format(entity, id)
+
+        if key not in objects:
+            print("** no instance found **")
+            return False
+
+        print(objects[key])
+
+    def destroy_instance(self, entity, id):
+        """destroy instance by id"""
+        objects = storage.all()
+        key = "{}.{}".format(entity, id)
+
+        if key not in objects:
+            print("** no instance found **")
+            return False
+
+        objects.pop(key)
+        storage.save()
 
 
 def parse(arg):
