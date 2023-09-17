@@ -45,7 +45,7 @@ class FileStorage:
         if type(FileStorage.__file_path) is not str:
             return
         try:
-            with open(FileStorage.__file_path, "r") as file:
+            with open(FileStorage.__file_path, "r",  encoding="utf-8") as file:
                 objects = load(file)
                 for key in objects:
                     dictionary = objects[key]

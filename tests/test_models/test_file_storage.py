@@ -4,7 +4,6 @@
 
 import unittest
 from models.engine.file_storage import FileStorage
-from models import storage
 
 
 class TestFileStorage(unittest.TestCase):
@@ -28,5 +27,4 @@ class TestFileStorage(unittest.TestCase):
         orignal_file_path = FileStorage._FileStorage__file_path
 
         FileStorage._FileStorage__file_path = "/tmp/tmp_test_file.json"
-        storage.all()
         FileStorage._FileStorage__file_path = orignal_file_path
