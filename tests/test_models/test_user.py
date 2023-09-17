@@ -4,6 +4,7 @@
 
 import unittest
 from models.user import User
+from time import sleep
 
 
 class TestUser(unittest.TestCase):
@@ -25,3 +26,17 @@ class TestUser(unittest.TestCase):
         self.assertEqual(type(u.last_name), str)
         self.assertEqual(type(u.email), str)
         self.assertEqual(type(u.password), str)
+
+    def test_save(self):
+        """test user save"""
+        u = User()
+        sleep(0.1)
+        ref_updated_at = u.updated_at
+        u.save()
+        self.assertLess(ref_updated_at, u.updated_at)
+
+    def test_save_with_arg(self):
+        """test save with arg"""
+        u = User()
+        with self.assertRaises(TypeError):
+            u.save(None)
