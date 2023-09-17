@@ -19,7 +19,7 @@ class TestUser(unittest.TestCase):
 
     def test_attributes(self):
         """test attributes"""
-        u = User(1)
+        u = User()
         self.assertEqual(type(u.id), str)
         self.assertEqual(type(u.first_name), str)
         self.assertEqual(type(u.last_name), str)
