@@ -9,6 +9,10 @@ class HBNBCommand(cmd.Cmd):
     """This is Hbnb class; console managment"""
     prompt = '(hbnb) '
 
+    def emptyline(self):
+        """Do nothing"""
+        pass
+
     def do_quit(self, arg):
         """Exit the program"""
         return True
