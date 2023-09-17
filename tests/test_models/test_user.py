@@ -56,3 +56,7 @@ class TestUser(unittest.TestCase):
         self.assertIn("'id': '{}'".format(u.id), u_str)
         self.assertIn("'created_at': " + repr(u.created_at), u_str)
         self.assertIn("'updated_at': " + repr(u.updated_at), u_str)
+
+    def test_parent(self):
+        """test parent class"""
+        self.assertTrue(issubclass(User, models.base_model.BaseModel))
