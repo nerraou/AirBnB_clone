@@ -2,7 +2,6 @@
 """File storage model"""
 
 from json import dump, load
-from os import path
 from models.base_model import BaseModel
 
 
@@ -13,6 +12,7 @@ class FileStorage:
     """
     __file_path = "file.json"
     __objects = {}
+    __classes = {"BaseModel": BaseModel}
 
     def all(self):
         """returns the dictionary __objects"""
@@ -23,6 +23,8 @@ class FileStorage:
         sets in __objects the obj
         with key <obj class name>.id
         """
+        if not obj:
+            return
         key = "{}.{}".format(type(obj).__name__, obj.id)
         FileStorage.__objects[key] = obj
     
@@ -42,9 +44,12 @@ class FileStorage:
         """deserializes the JSON file to __objects"""
         if type(FileStorage.__file_path) is not str:
             return
-        if not path.isfile(FileStorage.__file_path):
-            return
-        with open(FileStorage.__file_path, "r") as file:
-            objects = load(file)
-            for key in objects:
-                FileStorage.__objects[key] = BaseModel(**objects[key])
+        try:
+            with open(FileStorage.__file_path, "r") as file:
+                objects = load(file)
+                for key in objects:
+                    dictionary = objects[key]
+                    targetClass = FileStorage.__classes[dictionary["__class__"]]
+                    FileStorage.__objects[key] = targetClass(**dictionary)
+        except FileNotFoundError:
+            pass
