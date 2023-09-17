@@ -5,7 +5,7 @@
 import unittest
 from models.user import User
 from time import sleep
-from datetime import datetime
+import models.base_model
 
 
 class TestUser(unittest.TestCase):
@@ -60,3 +60,11 @@ class TestUser(unittest.TestCase):
     def test_parent(self):
         """test parent class"""
         self.assertTrue(issubclass(User, models.base_model.BaseModel))
+
+    def test_support_extra_attributes(self):
+        """test support extra attributes"""
+        u = User()
+        u.age = 25
+        u_dictionary = u.to_dict()
+        self.assertIn("age", u_dictionary)
+        self.assertEqual(u.age, 25)
