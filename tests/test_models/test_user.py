@@ -19,6 +19,12 @@ class TestUser(unittest.TestCase):
         """test instance creation"""
         self.assertEqual(type(User()), User)
 
+    def test_init_with_kwargs(self):
+        """test init with kwargs"""
+        u_ref = User()
+        u_copy = User(**u_ref.to_dict())
+        self.assertDictEqual(u_ref.to_dict(), u_copy.to_dict())
+
     def test_attributes(self):
         """test attributes"""
         u = User()
