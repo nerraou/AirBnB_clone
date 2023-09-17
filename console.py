@@ -165,6 +165,27 @@ class HBNBCommand(cmd.Cmd):
         setattr(obj, attribute, obj_type(value))
         storage.save()
 
+    def default(self, arg):
+        """override default method"""
+        actions_dict = {
+            "User.count()": lambda: self.print_count("User")
+        }
+
+        if arg in actions_dict:
+            actions_dict[arg]()
+        else:
+            print("*** Unknown syntax:", arg)
+
+    def print_count(self, entity):
+        """print entity count"""
+        count = 0
+        objects = storage.all()
+        for key in objects:
+            obj = objects[key]
+            if obj.__class__.__name__ == entity:
+                count += 1
+        print(count)
+
 
 def parse(arg):
     """parse command line argument"""
