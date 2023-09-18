@@ -160,9 +160,14 @@ class HBNBCommand(cmd.Cmd):
         attribute = args[2]
         value = args[3]
         obj = objects[key]
-        currentValue = getattr(obj, attribute)
-        obj_type = type(currentValue)
-        setattr(obj, attribute, obj_type(value))
+        if attribute in obj.__dict__:
+            try:
+                currentValue = getattr(obj, attribute)
+                obj_type = type(currentValue)
+                value = obj_type(value)
+            except Exception:
+                return False
+        setattr(obj, attribute, value)
         storage.save()
 
     def default(self, arg):
